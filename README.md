@@ -1,0 +1,74 @@
+# Tugas Logika Fuzzy
+Terdapat suatu tempat usaha reparasi barang elektronik,
+Di luar biaya reparasi, pemilik biasa menerima bonus dari pelanggan sebagai tanda terimakasih.
+Besar bonus bergantung pada tiga kriteria yaitu hasil reparasi, biaya reparasi, dan durasi reparasi.
+Jika hasil reparasi bagus, biaya reparasi murah, dan durasi reparasi cepat, pelanggan mungkin memberikan bonus yang besar.
+Sebaliknya jika hasil reparasi buruk, biaya reparasi mahal, atau durasi reparasi lama, pelanggan mungkin memberikan bonus kecil atau tidak sama sekali.
+## Source Code .fis
+```
+[System]
+Name='FISBonusReparasi'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=18
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Hasil_Reparasi'
+Range=[0 10]
+NumMFs=3
+MF1='Buruk':'gaussmf',[1.769 -1.388e-16]
+MF2='Normal':'gaussmf',[1.769 5]
+MF3='Bagus':'gaussmf',[1.769 10]
+
+[Input2]
+Name='Biaya_Reparasi'
+Range=[0 10]
+NumMFs=2
+MF1='Mahal':'trimf',[-4 0 7]
+MF2='Murah':'trimf',[3 10 14]
+
+[Input3]
+Name='Durasi_Reparasi'
+Range=[0 10]
+NumMFs=3
+MF1='Lama':'gaussmf',[1.74 0.03873]
+MF2='Normal':'gaussmf',[1.769 5]
+MF3='Cepat':'gaussmf',[1.769 10]
+
+[Output1]
+Name='Bonus'
+Range=[0 30]
+NumMFs=3
+MF1='Sedikit':'trimf',[0 5 10]
+MF2='Sedang':'trimf',[10 15 20]
+MF3='Banyak':'trimf',[20 25 30]
+
+[Rules]
+1 1 1, 1 (1) : 1
+1 1 2, 1 (1) : 1
+1 1 3, 1 (1) : 1
+1 2 1, 1 (1) : 1
+1 2 2, 2 (1) : 1
+1 2 3, 2 (1) : 1
+2 1 1, 1 (1) : 1
+2 1 2, 2 (1) : 1
+2 1 3, 2 (1) : 1
+2 2 1, 2 (1) : 1
+2 2 2, 2 (1) : 1
+2 2 3, 3 (1) : 1
+3 1 1, 2 (1) : 1
+3 1 2, 2 (1) : 1
+3 1 3, 3 (1) : 1
+3 2 1, 3 (1) : 1
+3 2 2, 3 (1) : 1
+3 2 3, 3 (1) : 1
+
+```
+## 
